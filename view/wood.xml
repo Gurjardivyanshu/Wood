@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ====Tree View===== -->
+    <record id="wood_tree_view" model='ir.ui.view'>
+        <field name="name">wood.tree.view</field>
+        <field name="model">wood</field>
+        <field name="arch" type="xml">
+            <tree string='wood'>
+                <field name="date"/>
+                <field name="so_no"/>
+                <field name="buyer"/>
+                <field name="contracter"/>
+                <field name="product"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- form view -->
+    <record id="wood_form_view" model="ir.ui.view">
+        <field name="name">wood.form.view</field>
+        <field name="model">wood</field>
+        <field name="arch" type="xml">
+            <form string="wood">
+                <sheet>
+                    <group col="3">
+                        <group>
+                            <field name="date"/>
+                            <field name="so_no"/>
+                            <field name="buyer"/>
+                        </group>
+                        <group>
+                            <field name="contracter"/>
+                            <field name="product"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name='requisition' string="Requisition lines">
+                            <field name="wood_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="warehouse_id"/>
+                                    <!-- <field name="product"/> -->
+                                </tree>
+                            </field>
+                        </page>
+                        <page>
+                            <field name="qty"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>    
+        </field>
+    </record>
+
+    <record id="kanban_view" model="ir.ui.view">
+        <field name="name">wood.kanban.view</field>
+        <field name="model">wood</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="date"/>
+                <field name="so_no"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <div class="oe_kanban_card_title">
+                                        <field name="date"/>
+                                    </div>
+                                    <div class="oe_kanban_card_subtitle">
+                                        <field name="so_no"/>
+                                    </div>
+                                    <div class="oe_kanban_card_subtitle">
+                                        <field name="product"/>
+                                    </div>
+                                    <div>
+                                        <field name="qty"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+<!--     
+
+
+    <record id="kanban_view" model="ir.ui.view">
+        <field name="name">wood.kanban.view</field>
+        <field name="model">wood</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+				<field name="date"/>
+				<field name="so_no"/>
+				<templates>
+				  <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_global_click">
+                        <div class="oe_kanban_card">
+                          <div class="oe_kanban_card_header">
+                            <div class="oe_kanban_card_title">
+                              <field name="date"/>
+                            </div>
+                            <div class="oe_kanban_card_subtitle">
+                              <field name="so_no"/>
+                            </div>
+                            <div class="oe_kanban_card_subtitle">
+                                <field name="product"/>
+                            </div>
+                            <div>
+                                <field name="qty"/>
+                            </div>
+                          </div>
+                        </div>
+					</div>
+				  </t>
+				</templates>
+			  </kanban>
+        </field>
+    </record> -->
+
+    <record id="wood_view_action" model="ir.actions.act_window">
+        <field name="name">Wood</field>
+        <field name="res_model">wood</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <menuitem id="wood_menu1" name="Wood"/>
+    <menuitem id="wood_submenu1" name="Wood" parent="wood_menu1"/>
+    <menuitem id="wood_submenu_item1" name="Sub Wood" parent="wood_submenu1" action="wood_view_action"/>
+<!-- </record> -->
+</odoo>
